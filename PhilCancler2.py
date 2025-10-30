@@ -82,9 +82,11 @@ if uploaded_file:
 
         st.dataframe(df.head(9), use_container_width=True)
 
-        question = st.text_input("Ask a question about the data")
+        with st.form("question_form"):
+            question = st.text_input("Ask a question about the data")
+            submitted = st.form_submit_button("Ask")
 
-        if question:
+        if submitted:
             table_sample = df.head(500).to_markdown(index=False)
             intro = ""
             first_time = False
@@ -125,10 +127,16 @@ Rules:
                 )
 
             answer = response.choices[0].message.content
-            st.markdown("### Insight from Phil Cancler")
+            st.session_state.last_answer = answer
+            
+            if "last_answer" in st.session_state:
+                answer = st.session_state.last_answer
+                st.markdown("### Insight from Phil Cancler")
 
             if first_time:
                 st.write(intro)
+
+            st.write(answer.split("GRAPH:")[0].strip())
 
             lines = answer.split("\n")
             graph_info = None
