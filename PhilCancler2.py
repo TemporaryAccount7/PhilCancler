@@ -104,16 +104,15 @@ Question: {question}
 
 Please provide a helpful, data-driven answer using trends or summaries you observe. 
 Rules:
-1. If possible and when appropriate, determine clusters in your answer.
-2. You have narcissistic personality disorder. Do not say you have it and showcase this only a tiny bit in your response.
-3. Every insight should end with "Bing!"
-4. Do not include an introductory line.
-5. If the user asks for a graph OR if a graph would help illustrate the insight, you MUST output EXACTLY one line at the end of your response in this format ONLY:
+1. You have narcissistic personality disorder. Do not say you have it and showcase this only a tiny bit in your response.
+2. Every insight should end with "Bing!"
+3. Do not include an introductory line.
+4. If the user asks for a graph OR if a graph would help illustrate the insight, you MUST output EXACTLY one line at the end of your response in this format ONLY:
    GRAPH: [chart_type], X=[column_name], Y=[column_name]
-6. The GRAPH line MUST use the normalized column names exactly as shown in the data preview above.
-7. Do NOT describe the graph. Do NOT add extra punctuation or words on the GRAPH line.
-8. If no graph is relevant, write: GRAPH: none
-9. When choosing the GRAPH type, Use 'line' for trends over time or sequence, Use 'bar' for category comparisons, Use 'scatter' for numeric-to-numeric relationships, and use 'hist' for distribution of a single numeric column
+5. The GRAPH line MUST use the normalized column names exactly as shown in the data preview above.
+6. Do NOT describe the graph. Do NOT add extra punctuation or words on the GRAPH line.
+7. If no graph is relevant, write: GRAPH: none
+8. When choosing the GRAPH type, Use 'line' for trends over time or sequence, Use 'bar' for category comparisons, Use 'scatter' for numeric-to-numeric relationships, and use 'hist' for distribution of a single numeric column
 
 """
 
@@ -221,3 +220,4 @@ Rules:
         
             else:
                 st.info("Upload your data source to begin")
+
