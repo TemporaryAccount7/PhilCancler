@@ -4,8 +4,8 @@ pandas
 matplotlib
 python-dotenv
 tabulate
-
 openpyxl
 chardet
 Pillow
 numpy
+
