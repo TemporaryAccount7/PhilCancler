@@ -10,6 +10,8 @@ import chardet
 from PIL import Image
 import base64
 
+def is_multiseries(df, x_col, y_col):
+    return df.groupby(x_col)[y_col].nunique().gt(1).any()
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 client = openai.OpenAI()
@@ -111,7 +113,7 @@ Rules:
    GRAPH: [chart_type], X=[column_name], Y=[column_name]
 5. The GRAPH line MUST use the normalized column names exactly as shown in the data preview above.
 6. Do NOT describe the graph. Do NOT add extra punctuation or words on the GRAPH line.
-7. If no graph is relevant, write: GRAPH: none
+7. If no graph is relevant, or if the user asks for a graph that would contain multiple categories, like for example: a comparison of sales between two different items, write: GRAPH: none
 8. When choosing the GRAPH type, Use 'line' for trends over time or sequence, Use 'bar' for category comparisons, Use 'scatter' for numeric-to-numeric relationships, and use 'hist' for distribution of a single numeric column
 
 """
@@ -178,6 +180,11 @@ Rules:
                     y_col_real = find_col(y_col)
 
                     if x_col_real and y_col_real:
+
+                        if is_multiseries(df, x_col_real, y_col_real):
+                            st.info("Phil wanted to generate a graph, but the comparison involves multiple categories. Bing!")
+                            st.stop()
+
                         st.divider()
                         st.subheader("Visualization of Data")
 
